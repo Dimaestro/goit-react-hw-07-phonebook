@@ -1,23 +1,23 @@
 import React from 'react'
 import styles from './Contact.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts/contactsSlice';
+import { deleteContacts } from 'redux/contacts/contactsOperations';
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch()
 
   const handleDelete = () => {
     console.log(contact.id);
-    dispatch(deleteContact(contact.id));
+    dispatch(deleteContacts(contact.id));
   }
   return (
-    <div>
+    <>
       <p>{contact.name}</p>
-            <p>{contact.number}</p>
+            <p>{contact.phone}</p>
             <button className={styles.button} type="button" onClick={handleDelete}>
               delete
             </button>
-    </div>
+    </>
   )
 }
 

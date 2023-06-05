@@ -22,21 +22,3 @@
   );
   border-radius: 10px;
 }
-
-.button {
-  width: 100px;
-  padding: 10px;
-  background-color: transparent;
-  border: 1px solid rgba(238, 130, 238, 1);
-  border-radius: 10px;
-  color: aliceblue;
-  font-size: 18px;
-  box-shadow: 2px 2px 2px rgb(13, 153, 234);
-  transition-property: background-color, box-shadow;
-  transition-duration: 0.5s;
-}
-
-.button:hover {
-  background-color: rgba(238, 130, 238, 1);
-  box-shadow: 2px 2px 5px rgb(13, 153, 234);
-}

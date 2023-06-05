@@ -1,27 +1,54 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
+import { fetchContacts, addContacts, deleteContacts } from "./contactsOperations";
+import {  } from "./contactsOperations";
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {data: []},
-  reducers: {
-    addContact: {
-      reducer(state, action) {
-      state.data.push(action.payload);
-      },
-      prepare(name, number) {
-        return {
-          payload: {
-            name,
-            number,
-            id: nanoid(),
-          },
-        };
-      },
+  initialState: {
+    enteties: [],
+    isLoading: false,
+    error: null,
+  },
+  extraReducers: {
+    [fetchContacts.pending]: (state) => {
+      state.isLoading = true;
     },
-    deleteContact(state, action) {
-      const index = state.data.findIndex(task => task.id === action.payload);
-      state.data.splice(index, 1);
+    [fetchContacts.fulfilled]: (state, action) => {
+      state.enteties = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    },
+    [fetchContacts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    [addContacts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [addContacts.fulfilled]: (state, action) => {
+      state.enteties.push(action.payload);
+      state.isLoading = false;
+      state.error = null;
+    },
+    [addContacts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    [deleteContacts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteContacts.fulfilled]: (state, action) => {
+      const index = state.enteties.findIndex(item => item.id === action.payload);
+
+      state.enteties.splice(index, 1);
+      state.isLoading = false;
+      state.error = null;
+    },
+    [deleteContacts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     }
   }
 })

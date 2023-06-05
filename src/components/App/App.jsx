@@ -2,18 +2,27 @@ import styles from './App.module.css';
 import ContactForm from 'components/ContactForm/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
+import { useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
 
 const App = () => {
- 
+  const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.contacts.isLoading);
+  const error = useSelector(state => state.contacts.error);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  },[dispatch])
 
   return (
     <div className={styles.container}>
-        <h1 className={styles.title}>Phonebook</h1>
-        <ContactForm />
-
-        <h2 className={styles.title}>Contacts</h2>
-        <Filter />
-        <ContactList /> 
+      <h1 className={styles.title}>Phonebook</h1>
+      <ContactForm />
+      <h2 className={styles.title}>Contacts</h2>
+      <Filter />
+      {isLoading && !error && <b>Request in progress...</b>}
+      <ContactList /> 
       </div>
   )
 }

@@ -11,7 +11,8 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import contactsSlice from "./contacts/contactsSlice";
-import filterSlice from "./filterSlice/filterSlice";
+import filterSlice from "./filter/filterSlice";
+import paginationSlice from "./pagination/paginationSlice";
 
 const persistConfig = {
   key: 'root',
@@ -23,7 +24,8 @@ const persistedReducer = persistReducer(persistConfig, contactsSlice.reducer)
 const store = configureStore({
   reducer: {
     contacts: persistedReducer,
-    filter: filterSlice.reducer
+    filter: filterSlice.reducer,
+    pagination: paginationSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -32,6 +34,6 @@ const store = configureStore({
       },
     }),
 })
-export const persistor = persistStore(store);
 
+export const persistor = persistStore(store);
 export default store;
